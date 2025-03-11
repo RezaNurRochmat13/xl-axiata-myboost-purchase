@@ -24,4 +24,10 @@ public abstract class Auditing {
 
     @Column(name = "deleted_at", insertable = false, updatable = true)
     private LocalDateTime deletedAt;
+
+    @Column(name = "created_by", nullable = false, updatable = false)
+    private String createdBy;
+
+    @Column(name = "updated_by", nullable = false)
+    private String updatedBy;
 }
