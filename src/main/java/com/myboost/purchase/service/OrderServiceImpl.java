@@ -6,6 +6,7 @@ import com.myboost.purchase.entity.PurchaseOrderHeader;
 import com.myboost.purchase.entity.dto.CreatePurchaseOrderDto;
 import com.myboost.purchase.exception.ResourceNotFound;
 import com.myboost.purchase.repository.ItemRepository;
+import com.myboost.purchase.repository.PurchaseOrderDetailRepository;
 import com.myboost.purchase.repository.PurchaseOrderHeaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private PurchaseOrderHeaderRepository purchaseOrderHeaderRepository;
+
+    @Autowired
+    private PurchaseOrderDetailRepository purchaseOrderDetailRepository;
 
     @Autowired
     private ItemRepository itemRepository;
@@ -40,13 +44,20 @@ public class OrderServiceImpl implements OrderService {
         PurchaseOrderHeader purchaseOrderHeader = new PurchaseOrderHeader();
         purchaseOrderHeader.setDescription(payload.getDescription());
         purchaseOrderHeader.setOrderDate(LocalDateTime.now());
+        purchaseOrderHeader.setCreatedBy("admin");
+        purchaseOrderHeader.setUpdatedBy("");
 
         PurchaseOrderDetail purchaseOrderDetail = new PurchaseOrderDetail();
         purchaseOrderDetail.setItemCost(payload.getItemCost());
         purchaseOrderDetail.setItem(item);
         purchaseOrderDetail.setItemPrice(payload.getItemPrice());
         purchaseOrderDetail.setItemQuantity(payload.getItemQuantity());
-        purchaseOrderHeader.getPurchaseOrderDetails().add(purchaseOrderDetail);
+        purchaseOrderHeader.setPurchaseOrderDetails(List.of(purchaseOrderDetail));
+        purchaseOrderDetail.setCreatedBy("admin");
+        purchaseOrderDetail.setUpdatedBy("");
+
+        purchaseOrderDetailRepository.save(purchaseOrderDetail);
+
 
         return purchaseOrderHeaderRepository.save(purchaseOrderHeader);
     }

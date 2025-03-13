@@ -28,6 +28,6 @@ public abstract class Auditing {
     @Column(name = "created_by", nullable = false, updatable = false)
     private String createdBy;
 
-    @Column(name = "updated_by", nullable = false)
+    @Column(name = "updated_by", nullable = false, updatable = true)
     private String updatedBy;
 }

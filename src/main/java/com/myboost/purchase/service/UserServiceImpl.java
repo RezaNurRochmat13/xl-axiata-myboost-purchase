@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -28,6 +29,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
+        user.setCreatedBy("admin");
+        user.setUpdatedBy("");
         return userRepository.save(user);
     }
 
@@ -40,6 +43,7 @@ public class UserServiceImpl implements UserService {
         user.setLastName(payload.getLastName());
         user.setEmail(payload.getEmail());
         user.setPhone(payload.getPhone());
+        user.setUpdatedBy("admin");
 
         return userRepository.save(user);
     }
@@ -48,6 +52,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFound("User not found with id: " + id));
-        userRepository.delete(user);
+        user.setDeletedAt(LocalDateTime.now());
+        userRepository.save(user);
     }
 }

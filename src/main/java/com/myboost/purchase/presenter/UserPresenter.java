@@ -26,7 +26,7 @@ public class UserPresenter {
     }
 
     @GetMapping("/users/{id}")
-    public Map<String, Object> findUserById(Long id) {
+    public Map<String, Object> findUserById(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
         User user = userServiceImpl.findUserById(id);
         response.put("status", "success");
@@ -36,7 +36,7 @@ public class UserPresenter {
     }
 
     @PostMapping("/users")
-    public Map<String, Object> saveUser(User user) {
+    public Map<String, Object> saveUser(@RequestBody User user) {
         Map<String, Object> response = new HashMap<>();
         User savedUser = userServiceImpl.saveUser(user);
         response.put("status", "success");
@@ -46,7 +46,7 @@ public class UserPresenter {
     }
 
     @PutMapping("/users/{id}")
-    public Map<String, Object> updateUser(Long id, User user) {
+    public Map<String, Object> updateUser(@PathVariable Long id, @RequestBody User user) {
         Map<String, Object> response = new HashMap<>();
         User updatedUser = userServiceImpl.updateUser(id, user);
         response.put("status", "success");
@@ -56,7 +56,7 @@ public class UserPresenter {
     }
 
     @DeleteMapping("/users/{id}")
-    public Map<String, Object> deleteUser(Long id) {
+    public Map<String, Object> deleteUser(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
         userServiceImpl.deleteUser(id);
         response.put("status", "success");

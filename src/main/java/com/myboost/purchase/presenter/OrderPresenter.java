@@ -1,11 +1,10 @@
 package com.myboost.purchase.presenter;
 
 import com.myboost.purchase.entity.PurchaseOrderHeader;
+import com.myboost.purchase.entity.dto.CreatePurchaseOrderDto;
 import com.myboost.purchase.service.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +27,21 @@ public class OrderPresenter {
     }
 
     @GetMapping("/orders/{id}")
-    public Map<String, Object> findOrderById(Long id) {
+    public Map<String, Object> findOrderById(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
         PurchaseOrderHeader order = orderServiceImpl.findOrderById(id);
         response.put("status", "success");
         response.put("data", order);
+
+        return response;
+    }
+
+    @PostMapping("/orders")
+    public Map<String, Object> saveOrder(@RequestBody CreatePurchaseOrderDto payload) {
+        Map<String, Object> response = new HashMap<>();
+        PurchaseOrderHeader savedOrder = orderServiceImpl.saveOrder(payload);
+        response.put("status", "success");
+        response.put("data", savedOrder);
 
         return response;
     }

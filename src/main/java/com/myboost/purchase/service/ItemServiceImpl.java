@@ -28,6 +28,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item saveItem(Item item) {
+        item.setCreatedBy("admin");
+        item.setUpdatedBy("");
         return itemRepository.save(item);
     }
 
@@ -41,6 +43,7 @@ public class ItemServiceImpl implements ItemService {
         item.setPrice(payload.getPrice());
         item.setQuantity(payload.getQuantity());
         item.setCost(payload.getCost());
+        item.setUpdatedBy("admin");
 
         return itemRepository.save(item);
     }

@@ -26,7 +26,7 @@ public class ItemPresenter {
     }
 
     @GetMapping("/items/{id}")
-    public Map<String, Object> findItemById(Long id) {
+    public Map<String, Object> findItemById(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
         Item item = itemServiceImpl.findItemById(id);
         response.put("status", "success");
@@ -36,7 +36,7 @@ public class ItemPresenter {
     }
 
     @PostMapping("/items")
-    public Map<String, Object> saveItem(Item item) {
+    public Map<String, Object> saveItem(@RequestBody Item item) {
         Map<String, Object> response = new HashMap<>();
         Item savedItem = itemServiceImpl.saveItem(item);
         response.put("status", "success");
@@ -46,7 +46,7 @@ public class ItemPresenter {
     }
 
     @PutMapping("/items/{id}")
-    public Map<String, Object> updateItem(Long id, Item item) {
+    public Map<String, Object> updateItem(@PathVariable Long id, @RequestBody Item item) {
         Map<String, Object> response = new HashMap<>();
         Item updatedItem = itemServiceImpl.updateItem(id, item);
         response.put("status", "success");
@@ -56,7 +56,7 @@ public class ItemPresenter {
     }
 
     @DeleteMapping("/items/{id}")
-    public Map<String, Object> deleteItem(Long id) {
+    public Map<String, Object> deleteItem(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
         itemServiceImpl.deleteItem(id);
         response.put("status", "success");
