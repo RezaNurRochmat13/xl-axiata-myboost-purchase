@@ -23,10 +23,6 @@ public class PurchaseOrderDetail extends Auditing implements Serializable {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @Column(name = "item_quantity")
     private Integer itemQuantity;
 

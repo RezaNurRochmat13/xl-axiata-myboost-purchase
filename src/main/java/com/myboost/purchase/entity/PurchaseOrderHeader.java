@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ public class PurchaseOrderHeader extends Auditing implements Serializable {
     private Long id;
 
     @Column(name = "order_date")
-    private String orderDate;
+    private LocalDateTime orderDate;
 
     @Column(name = "description")
     private String description;

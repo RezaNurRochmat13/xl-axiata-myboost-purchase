@@ -28,7 +28,4 @@ public class User extends Auditing implements Serializable {
     @Column(name = "phone")
     private String phone;
 
-    @OneToMany(mappedBy = "user")
-    private List<PurchaseOrderDetail> purchaseOrderDetails;
-
 }
